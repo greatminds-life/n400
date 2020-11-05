@@ -51,6 +51,7 @@ const useStyles = (theme) => ({
   grid: {
     alignContent: "center",
     justifyContent: "center",
+    margin:10,
   },
   qgrid: {
     mindHeight: 500,
@@ -84,7 +85,7 @@ const useStyles = (theme) => ({
 class Questions extends Component {
   state = {
     showAnswer: false,
-    num: 86,
+    num: 38,
     ansBtnText: "Show Answer",
   };
 
