@@ -19,6 +19,22 @@ import Paper from "@material-ui/core/Paper";
 import { FormatBold } from "@material-ui/icons";
 
 const useStyles = (theme) => ({
+  "@global": {
+    // MUI typography elements use REMs, so you can scale the global
+    // font size by setting the font-size on the <html> element.
+    html: {
+      fontSize: 16,
+      [theme.breakpoints.up("xs")]: {
+        fontSize: 18
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: 20
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: 24
+      }
+    }
+  },
   root: {
     mindWidth: 500,
     justifyContent: "center",
@@ -52,21 +68,25 @@ const useStyles = (theme) => ({
     marginBottom: 12,
   },
   qpaper: {
-    height: 150,
-    width: 500,
+    minHeight: 120,
+    width: "auto",
     padding: 20,
   },
   apaper: {
-    height: 400,
-    width: 500,
+    height: 600,
+    width: "auto",
     padding: 20,
+    marginBottom: 30
   },
+  buttons: {
+    justifyContent: "right",
+  }
 });
 
 class Questions extends Component {
   state = {
     showAnswer: false,
-    num: 0,
+    num: 30,
     ansBtnText: "Show Answer",
   };
 
@@ -84,7 +104,7 @@ class Questions extends Component {
 
   loadNextQuestionHanlder = () => {
     let currentNum = this.state.num;
-    if (currentNum == 2) {
+    if (currentNum == 99) {
       this.setState({ num: 0 });
     } else {
       this.setState({ num: currentNum + 1 });
@@ -97,7 +117,7 @@ class Questions extends Component {
   loadPrevQuestionHanlder = () => {
     let currentNum = this.state.num;
     if (currentNum == 0) {
-      this.setState({ num: 2 });
+      this.setState({ num: 99 });
     } else {
       this.setState({ num: currentNum - 1 });
     }
@@ -107,7 +127,7 @@ class Questions extends Component {
   };
 
   loadRandomQuestionHanlder = () => {
-    this.setState({ num: Math.floor(Math.random() * 3) });
+    this.setState({ num: Math.floor(Math.random() * 100) });
     if (this.state.showAnswer) {
       this.showAnswerHandler();
     }
@@ -116,16 +136,18 @@ class Questions extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Grid container className={classes.grid}>
-        <Grid container xs={12} spacing={2} direction="column">
+      <Grid container className={classes.grid} direction="column">
+        <Grid container xs={12} sm={6} spacing={2} direction="column">
           <Grid item>
             <Paper className={classes.qpaper}>
               <Typography>
-                <Box fontWeight="fontWeightBold" fontSize={12}>
+                <Box fontWeight="fontWeightBold" fontSize={16}>
                   Question {this.state.num + 1}
                 </Box>
               </Typography>
-              <Typography>{questions[this.state.num].q}</Typography>
+              <Box>
+                <Typography>{questions[this.state.num].q}</Typography>
+              </Box>
             </Paper>
           </Grid>
           <Grid item>
@@ -156,11 +178,11 @@ class Questions extends Component {
           </Card> */}
         </Grid>
 
-        <Grid container spacing={2} xs={12}>
+        <Grid container spacing={2} xs={12} sm={6} className ={classes.buttons}>
           <Grid item>
             <Button
               color="default"
-              size="small"
+              size="medium"
               onClick={this.loadPrevQuestionHanlder}
             >
               Prev
@@ -170,7 +192,7 @@ class Questions extends Component {
           <Grid item>
             <Button
               color="default"
-              size="small"
+              size="medium"
               onClick={this.loadNextQuestionHanlder}
             >
               Next
@@ -180,7 +202,7 @@ class Questions extends Component {
           <Grid item>
             <Button
               color="primary"
-              size="small"
+              size="medium"
               onClick={this.loadRandomQuestionHanlder}
             >
               Random
@@ -189,7 +211,7 @@ class Questions extends Component {
           <Grid item>
             <Button
               color="secondary"
-              size="small"
+              size="medium"
               onClick={this.showAnswerHandler}
             >
               {this.state.ansBtnText}
