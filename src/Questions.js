@@ -49,10 +49,8 @@ const useStyles = (theme) => ({
     fontSize: 10,
   },
   grid: {
-    padding: 20,
     alignContent: "center",
     justifyContent: "center",
-
   },
   qgrid: {
     mindHeight: 500,
@@ -73,13 +71,13 @@ const useStyles = (theme) => ({
     padding: 20,
   },
   apaper: {
-    height: 550,
+    minHeight: 200,
     width: "auto",
     padding: 20,
-    marginBottom: 20,
   },
   buttons: {
-    justifyContent: "right",
+    marginTop: 20,
+    marginBottom:20,
   },
 });
 
@@ -138,7 +136,7 @@ class Questions extends Component {
     return (
       <Grid container className={classes.grid} direction="column">
         <Grid container xs={12} sm={6} spacing={2} direction="column">
-          <Grid item >
+          <Grid item>
             <Paper className={classes.qpaper}>
               <Box fontWeight="fontWeightBold">
                 Question {this.state.num + 1}
@@ -146,22 +144,12 @@ class Questions extends Component {
               <Box>{questions[this.state.num].q}</Box>
             </Paper>
           </Grid>
-          <Grid item>
-            <Paper className={classes.apaper}>
-              <Box>
-                {this.state.showAnswer ? (
-                  <Answers ans={questions[this.state.num].a} />
-                ) : " "}
-              </Box>
-            </Paper>
-          </Grid>
         </Grid>
-
-        <Grid container spacing={2} xs={12} sm={6} className={classes.buttons}>
+        <Grid container className={classes.buttons}>
           <Grid item>
             <Button
               color="default"
-              size="medium"
+              size="small"
               onClick={this.loadPrevQuestionHanlder}
             >
               Prev
@@ -171,7 +159,7 @@ class Questions extends Component {
           <Grid item>
             <Button
               color="default"
-              size="medium"
+              size="small"
               onClick={this.loadNextQuestionHanlder}
             >
               Next
@@ -181,20 +169,35 @@ class Questions extends Component {
           <Grid item>
             <Button
               color="primary"
-              size="medium"
+              size="small"
               onClick={this.loadRandomQuestionHanlder}
             >
               Random
             </Button>
           </Grid>
+
           <Grid item>
             <Button
               color="secondary"
-              size="medium"
+              size="small"
               onClick={this.showAnswerHandler}
             >
               {this.state.ansBtnText}
             </Button>
+          </Grid>
+        </Grid>
+
+        <Grid container xs={12} sm={6} spacing={2} direction="column">
+          <Grid item>
+            <Paper className={classes.apaper}>
+              <Box>
+                {this.state.showAnswer ? (
+                  <Answers ans={questions[this.state.num].a} />
+                ) : (
+                  " "
+                )}
+              </Box>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>
