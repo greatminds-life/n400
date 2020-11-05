@@ -25,15 +25,15 @@ const useStyles = (theme) => ({
     html: {
       fontSize: 16,
       [theme.breakpoints.up("xs")]: {
-        fontSize: 18
+        fontSize: 14,
       },
       [theme.breakpoints.up("md")]: {
-        fontSize: 20
+        fontSize: 16,
       },
       [theme.breakpoints.up("lg")]: {
-        fontSize: 24
-      }
-    }
+        fontSize: 16,
+      },
+    },
   },
   root: {
     mindWidth: 500,
@@ -52,7 +52,7 @@ const useStyles = (theme) => ({
     padding: 20,
     alignContent: "center",
     justifyContent: "center",
-    minWidth: 500,
+
   },
   qgrid: {
     mindHeight: 500,
@@ -68,25 +68,25 @@ const useStyles = (theme) => ({
     marginBottom: 12,
   },
   qpaper: {
-    minHeight: 120,
+    minHeight: 100,
     width: "auto",
     padding: 20,
   },
   apaper: {
-    height: 600,
+    height: 550,
     width: "auto",
     padding: 20,
-    marginBottom: 30
+    marginBottom: 20,
   },
   buttons: {
     justifyContent: "right",
-  }
+  },
 });
 
 class Questions extends Component {
   state = {
     showAnswer: false,
-    num: 30,
+    num: 86,
     ansBtnText: "Show Answer",
   };
 
@@ -138,47 +138,26 @@ class Questions extends Component {
     return (
       <Grid container className={classes.grid} direction="column">
         <Grid container xs={12} sm={6} spacing={2} direction="column">
-          <Grid item>
+          <Grid item >
             <Paper className={classes.qpaper}>
-              <Typography>
-                <Box fontWeight="fontWeightBold" fontSize={16}>
-                  Question {this.state.num + 1}
-                </Box>
-              </Typography>
-              <Box>
-                <Typography>{questions[this.state.num].q}</Typography>
+              <Box fontWeight="fontWeightBold">
+                Question {this.state.num + 1}
               </Box>
+              <Box>{questions[this.state.num].q}</Box>
             </Paper>
           </Grid>
           <Grid item>
             <Paper className={classes.apaper}>
-              <Typography>
+              <Box>
                 {this.state.showAnswer ? (
                   <Answers ans={questions[this.state.num].a} />
-                ) : null}
-              </Typography>
+                ) : " "}
+              </Box>
             </Paper>
           </Grid>
-
-          {/*           <Card>
-            <CardContent>
-              <Typography>
-                <Box fontWeight="fontWeightBold" fontSize={12}>
-                  Question {this.state.num + 1}
-                </Box>
-              </Typography>
-              <Typography>{questions[this.state.num].q}</Typography>
-              <Divider light />
-              <Typography>
-                {this.state.showAnswer ? (
-                  <Answers ans={questions[this.state.num].a} />
-                ) : null}
-              </Typography>
-            </CardContent>
-          </Card> */}
         </Grid>
 
-        <Grid container spacing={2} xs={12} sm={6} className ={classes.buttons}>
+        <Grid container spacing={2} xs={12} sm={6} className={classes.buttons}>
           <Grid item>
             <Button
               color="default"
