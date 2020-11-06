@@ -16,6 +16,8 @@ import Divider from "@material-ui//core/Divider";
 import { sizing } from "@material-ui/system";
 import Paper from "@material-ui/core/Paper";
 
+import Say, { SayButton } from "react-say";
+
 import { FormatBold } from "@material-ui/icons";
 
 const useStyles = (theme) => ({
@@ -51,7 +53,7 @@ const useStyles = (theme) => ({
   grid: {
     alignContent: "center",
     justifyContent: "center",
-    margin:10,
+    margin: 10,
   },
   qgrid: {
     mindHeight: 500,
@@ -78,7 +80,7 @@ const useStyles = (theme) => ({
   },
   buttons: {
     marginTop: 20,
-    marginBottom:20,
+    marginBottom: 20,
   },
 });
 
@@ -134,6 +136,7 @@ class Questions extends Component {
 
   render() {
     const { classes } = this.props;
+
     return (
       <Grid container className={classes.grid} direction="column">
         <Grid container xs={12} sm={6} spacing={2} direction="column">
@@ -143,6 +146,12 @@ class Questions extends Component {
                 Question {this.state.num + 1}
               </Box>
               <Box>{questions[this.state.num].q}</Box>
+              <SayButton
+                onClick={(event) => console.log(event)}
+                speak={questions[this.state.num].q}
+              >
+                Play
+              </SayButton>
             </Paper>
           </Grid>
         </Grid>
@@ -193,7 +202,15 @@ class Questions extends Component {
             <Paper className={classes.apaper}>
               <Box>
                 {this.state.showAnswer ? (
-                  <Answers ans={questions[this.state.num].a} />
+                  <div>
+                    <Answers ans={questions[this.state.num].a} />
+                    <SayButton
+                      onClick={(event) => console.log(event)}
+                      speak={questions[this.state.num].a}
+                    >
+                      Play
+                    </SayButton>
+                  </div>
                 ) : (
                   " "
                 )}
